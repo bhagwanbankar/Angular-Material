@@ -16,6 +16,8 @@ import { EmployeeService } from './shared/employee.service';
 import { environment } from '../environments/environment';
 import { DepartmentService } from './shared/department.service';
 import { NotificationService } from './shared/notification.service';
+import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -23,7 +25,8 @@ import { NotificationService } from './shared/notification.service';
   declarations: [
     AppComponent,
     EmployeesComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    EmployeeListComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { NotificationService } from './shared/notification.service';
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [EmployeeService, DepartmentService, NotificationService],
+  providers: [EmployeeService, DepartmentService, NotificationService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
