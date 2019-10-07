@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/employee.service';
+import { timingSafeEqual } from 'crypto';
+import { DepartmentService } from 'src/app/shared/department.service';
 
 @Component({
   selector: 'app-employee',
@@ -8,7 +10,8 @@ import { EmployeeService } from 'src/app/shared/employee.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(private employeeService:EmployeeService) { }
+  constructor(private employeeService:EmployeeService,
+              private deparmentService: DepartmentService) { }
 
   private departments = [
     {id: 1, value: 'Dep 1'},
@@ -18,6 +21,7 @@ export class EmployeeComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.employeeService.getEmployee();
   }
   onClear(){
     console.log("OnClear Clicked");
@@ -25,4 +29,11 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.initializeFormGroup();
   }
 
+  onSubmit(){
+    if(this.employeeService.form.valid){
+      this.employeeService.insertEmployee(this.employeeService.form.value);
+      this.employeeService.form.reset();
+      this.employeeService.initializeFormGroup();
+    }
+  }
 }
