@@ -15,6 +15,7 @@ import { MaterialModule } from './material/material.module';
 import { EmployeeService } from './shared/employee.service';
 import { environment } from '../environments/environment';
 import { DepartmentService } from './shared/department.service';
+import { NotificationService } from './shared/notification.service';
 
 
 
@@ -33,7 +34,7 @@ import { DepartmentService } from './shared/department.service';
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [EmployeeService, DepartmentService],
+  providers: [EmployeeService, DepartmentService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

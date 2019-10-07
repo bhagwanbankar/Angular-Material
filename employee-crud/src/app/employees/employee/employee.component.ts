@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/employee.service';
 import { timingSafeEqual } from 'crypto';
 import { DepartmentService } from 'src/app/shared/department.service';
+import { NotificationService } from 'src/app/shared/notification.service';
 
 @Component({
   selector: 'app-employee',
@@ -11,7 +12,8 @@ import { DepartmentService } from 'src/app/shared/department.service';
 export class EmployeeComponent implements OnInit {
 
   constructor(private employeeService:EmployeeService,
-              private deparmentService: DepartmentService) { }
+              private deparmentService: DepartmentService,
+              private notificationService : NotificationService) { }
 
   private departments = [
     {id: 1, value: 'Dep 1'},
@@ -27,6 +29,7 @@ export class EmployeeComponent implements OnInit {
     console.log("OnClear Clicked");
     this.employeeService.form.reset();
     this.employeeService.initializeFormGroup();
+    this.notificationService.successMsg("Submitted Successfully");
   }
 
   onSubmit(){
@@ -34,6 +37,7 @@ export class EmployeeComponent implements OnInit {
       this.employeeService.insertEmployee(this.employeeService.form.value);
       this.employeeService.form.reset();
       this.employeeService.initializeFormGroup();
+      this.notificationService.successMsg(":: Submitted Successfully");
     }
   }
 }
