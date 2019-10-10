@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class EmployeeService {
-
+  
 
   constructor(private firebase: AngularFireDatabase,private datePipe: DatePipe) { }
 
@@ -73,5 +73,12 @@ export class EmployeeService {
   deleteEmployee($key:string){
     this.employeeList.remove($key);
   }
+
+  populateEmployee(emp) {
+    console.log('in populateEmployee function');
+    this.form.setValue(emp);
+  }
+
+
 
 }

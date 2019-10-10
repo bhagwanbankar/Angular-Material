@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/employee.service';
-import { timingSafeEqual } from 'crypto';
 import { DepartmentService } from 'src/app/shared/department.service';
 import { NotificationService } from 'src/app/shared/notification.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-employee',
@@ -13,7 +13,8 @@ export class EmployeeComponent implements OnInit {
 
   constructor(private employeeService:EmployeeService,
               private deparmentService: DepartmentService,
-              private notificationService : NotificationService) { }
+              private notificationService : NotificationService,
+              private dialogRef: MatDialogRef<EmployeeComponent>) { }
 
   private departments = [
     {id: 1, value: 'Dep 1'},
@@ -34,10 +35,19 @@ export class EmployeeComponent implements OnInit {
 
   onSubmit(){
     if(this.employeeService.form.valid){
-      this.employeeService.insertEmployee(this.employeeService.form.value);
+      if(!this.employeeService.form.get('$key').value)
+        this.employeeService.insertEmployee(this.employeeService.form.value);
+      else
+        this.employeeService.updateEmployee(this.employeeService.form.value);
       this.employeeService.form.reset();
       this.employeeService.initializeFormGroup();
       this.notificationService.successMsg(":: Submitted Successfully");
+      this.onClose();
     }
+  }
+  onClose(){
+    this.employeeService.form.reset();
+    this.employeeService.initializeFormGroup();
+    this.dialogRef.close();
   }
 }
